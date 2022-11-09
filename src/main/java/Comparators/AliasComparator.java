@@ -1,4 +1,7 @@
+package Comparators;
+import Data.Superhero;
 import java.util.Comparator;
+
 
 public class AliasComparator implements Comparator<Superhero> {
     @Override

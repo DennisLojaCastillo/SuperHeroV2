@@ -1,5 +1,13 @@
+package Controller;
+
+import Comparators.*;
+import Data.Database;
+import Data.FileHandler;
+import Data.Superhero;
+import Enum.MessageEnum;
 import java.util.ArrayList;
 import java.util.Collections;
+
 
 public class ControllerSuperhero {
 private Database database;

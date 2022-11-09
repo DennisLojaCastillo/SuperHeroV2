@@ -1,5 +1,8 @@
-import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
+package MainAndUI;
+import Comparators.*;
+import Data.Superhero;
+import Controller.ControllerSuperhero;
+import Enum.MessageEnum;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,9 +36,10 @@ public class UserInterface {
             System.out.println("""                  
                     1. Add new Superhero
                     2. View Superhero List
-                    3. Search Superhero
-                    4. Edit Superhero List
-                    5. Delete Superhero
+                    3. View Superhero Sorted List
+                    4. Search Superhero
+                    5. Edit Superhero List
+                    6. Delete Superhero
                     9. End Program
                     """);
 
@@ -49,9 +53,10 @@ public class UserInterface {
         switch (userChoice) {
             case 1 -> addSuperhero();
             case 2 -> superheroList();
-            case 3 -> searchByAlias();
-            case 4 -> editTool();
-            case 5 -> deleteHero();
+            case 3 -> sortedList();
+            case 4 -> searchByAlias();
+            case 5 -> editTool();
+            case 6 -> deleteHero();
             case 9 -> {
                 controller.saveSuperhero();
                 System.out.println("\nGoodbye, Thank you!");
@@ -82,7 +87,7 @@ public class UserInterface {
 
         controller.addSuperhero(name, alias, power, year, strength);
 
-        System.out.println("Superhero Registered!");
+        System.out.println("\nSuperhero Registered!\n");
     }
 
     public void superheroList() {
@@ -90,33 +95,63 @@ public class UserInterface {
             System.out.println("\nThere's no Superhero registered...\n");
         } else {
             System.out.println("List of Superhero's registered\n");
-            //Name Comparator
+            controller.sortByName();
             for (Superhero superhero : controller.getHeros()) {
                 System.out.println(superhero);
             }
         }
+    }
 
+    public void sortedList() {
         int sortChoice = -1;
 
         while (sortChoice != 9) {
+            System.out.println("""                  
+                    Superhero Sorted List
+                    1. Sort by 1 criteria
+                    2. Sort by 2 criteria
+                    """);
+
+            sortChoice = readInteger();
+            scanner.nextLine();
+            handlingSortChoice(sortChoice);
+        }
+    }
+
+    public void handlingSortChoice(int sortChoice) {
+        switch (sortChoice) {
+            case 1 -> sortBySpecList();
+            case 2 -> sortByPrimAndSecond();
+            case 9 -> System.out.println("Going back");
+
+            default -> System.out.println("""   
+                    Could not handle input. Please try again
+                    Choose menu item from 1-3
+                    """);
+        }
+    }
+
+    public void sortBySpecList() {
+        int sortSpecChoice = -1;
+
+        while (sortSpecChoice != 9) {
             System.out.println("""      
-                    Choose to sorted list by:            
+                    Choose to sorted list by:
                     1. Name
                     2. Alias
                     3. Power
                     4. Year
-                    5. Strength                   
+                    5. Strength
                     9. Back to menu
                     """);
-            sortChoice = readInteger();
+            sortSpecChoice = readInteger();
             scanner.nextLine();
-            handlingSortedList(sortChoice);
-
+            handlingSpecList(sortSpecChoice);
         }
     }
 
-    public void handlingSortedList(int sortChoice) {
-        switch (sortChoice) {
+    public void handlingSpecList(int sortSpecChoice) {
+        switch (sortSpecChoice) {
             case 1 -> {
                 controller.sortByName();
                 for (Superhero superhero : controller.getHeros()) {
@@ -147,13 +182,60 @@ public class UserInterface {
                     System.out.println(superhero);
                 }
             }
-            case 9 -> handlingUserChoice(sortChoice);
+            case 9 -> handlingUserChoice(sortSpecChoice);
 
             default -> System.out.println("""   
                     Could not handle input. Please try again
                     Choose menu item from 1-5
                     """);
         }
+    }
+
+    public void sortByPrimAndSecond() {
+        System.out.println("Choose the first criteria you want to sort?");
+        System.out.println("""
+                    Choose the primary sorted list:
+                    1. Name
+                    2. Alias
+                    3. Power
+                    4. Year
+                    5. Strength                   
+                    """);
+
+        int sortChoice1 = readInteger();
+
+        Comparator primary = null;
+        switch (sortChoice1) {
+            case 1 -> primary = new HeroNameComparator();
+            case 2 -> primary = new AliasComparator();
+            case 3 -> primary = new PowerComparator();
+            case 4 -> primary = new YearComparator();
+            case 5 -> primary = new StrengthComparator();
+
+        }
+
+        System.out.println("Choose the second criteria you want to sort?\n");
+        System.out.println("""
+                    Choose the primary sorted list:
+                    1. Name
+                    2. Alias
+                    3. Power
+                    4. Year
+                    5. Strength                   
+                    """);
+
+        Comparator secondary = null;
+        int sortChoice2 = readInteger();
+        switch (sortChoice2) {
+            case 1 -> secondary = new HeroNameComparator();
+            case 2 -> secondary = new AliasComparator();
+            case 3 -> secondary = new PowerComparator();
+            case 4 -> secondary = new YearComparator();
+            case 5 -> secondary = new StrengthComparator();
+        }
+
+        Collections.sort(controller.getHeros(), primary.thenComparing(secondary));
+        superheroList();
     }
 
     public void searchByAlias() {

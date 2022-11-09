@@ -1,3 +1,4 @@
 Bruce Wayne,Bat Man,Agile,1923,65.21
-Peter Parker,Spider Man,Spider-Power,1992,11.21
 Clark Kent,Super Man,Strong,1943,34.31
+Peter Parker,Spider Man,Spider-Power,1992,11.21
+Dennis Castillo,Super D,D Force,1995,9.9
