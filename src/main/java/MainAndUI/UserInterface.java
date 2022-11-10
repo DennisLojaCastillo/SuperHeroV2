@@ -5,10 +5,7 @@ import Data.Superhero;
 import Controller.ControllerSuperhero;
 import Enum.MessageEnum;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserInterface {
     private final ControllerSuperhero controller = new ControllerSuperhero();
@@ -96,11 +93,18 @@ public class UserInterface {
         if (controller.getHeros().size() == 0) {
             System.out.println("\nThere's no Superhero registered...\n");
         } else {
-            System.out.println("List of Superhero's registered\n");
             controller.sortByName();
-            for (Superhero superhero : controller.getHeros()) {
-                System.out.println(superhero);
+            //for (Superhero superhero : controller.getHeros()) {
+            //    System.out.println(superhero);
+            //}
+            Formatter fm = new Formatter();
+            fm.format("%19s %14s %18s %16s %17s\n", "REAL NAME", "ALIAS", "SUPERPOWER", "YEAR", "STRENGTH");
+            System.out.println("------------------------------- List of Superhero's registered ------------------------------\n");
+            for(Superhero s : controller.getHeros()) {
+                fm.format("%19s %14s %17s %17s %17s\n", s.getName(), s.getAlias(), s.getPower(), s.getYear(), s.getStrength());
             }
+            System.out.println(fm);
+            System.out.println("---------------------------------------------------------------------------------------------");
         }
     }
 
@@ -252,11 +256,19 @@ public class UserInterface {
         if (controller.getHeros().size() == 0) {
             System.out.println("\nThere's no Superhero registered...\n");
         } else {
-            System.out.println("List of Superhero's registered\n");
-
-            for (int i = 0; i < controller.getHeros().size(); i++) {
-                System.out.println(i + 1 + " Superhero: \n" + controller.getHeros().get(i));
+            int sNr = 1;
+            //for (int i = 0; i < controller.getHeros().size(); i++) {
+            //    System.out.println("[" + (i + 1) + "] Superhero: \n" + controller.getHeros().get(i));
+            //}
+            Formatter fm = new Formatter();
+            fm.format("%5s %19s %14s %18s %16s %17s\n", "NR", "REAL NAME", "ALIAS", "SUPERPOWER", "YEAR", "STRENGTH");
+            System.out.println("------------------------------- List of Superhero's registered ------------------------------\n");
+            for(Superhero s : controller.getHeros()) {
+                fm.format("%5s %19s %14s %17s %17s %17s\n", sNr, s.getName(), s.getAlias(), s.getPower(), s.getYear(), s.getStrength());
+                sNr++;
             }
+            System.out.println(fm);
+            System.out.println("---------------------------------------------------------------------------------------------------");
 
             System.out.println("Enter Superhero number to edit informations:");
             int numb = scanner.nextInt();
@@ -266,7 +278,7 @@ public class UserInterface {
                 System.out.println("\nThis number don't exits in the database. Please try again");
             } else {
                 editHero = controller.getHeros().get(numb - 1);
-                System.out.println("Edit Person: " + editHero);
+                System.out.println("Edit Person: \n" + editHero);
 
                 System.out.println("Edit data and press ENTER If data is not to be edited press ENTER\n");
 
@@ -313,10 +325,18 @@ public class UserInterface {
         if (controller.getHeros().size() == 0) {
             System.out.println("\nThere's no Superhero registered...\n");
         } else {
-            System.out.println("List of Superhero's registered\n");
-            for (int i = 0; i < controller.getHeros().size(); i++) {
-                System.out.println(i + 1 + " Superhero: \n" + controller.getHeros().get(i));
+            System.out.println("\n");
+            int sNr = 1;
+            Formatter fm = new Formatter();
+            fm.format("%5s %19s %14s %18s %16s %17s\n", "NR", "REAL NAME", "ALIAS", "SUPERPOWER", "YEAR", "STRENGTH");
+            System.out.println("------------------------------- List of Superhero's registered ------------------------------\n");
+            for(Superhero s : controller.getHeros()) {
+                fm.format("%5s %19s %14s %17s %17s %17s\n", sNr, s.getName(), s.getAlias(), s.getPower(), s.getYear(), s.getStrength());
+                sNr++;
             }
+            System.out.println(fm);
+            System.out.println("---------------------------------------------------------------------------------------------------");
+
             System.out.println("Enter Superhero number to delete Superhero: ");
 
             int nr = readInteger();
