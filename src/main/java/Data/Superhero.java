@@ -64,11 +64,11 @@ public class Superhero {
     //------------------------------------------------------------------------------------------------
     // ToString - Dette printer info om en superhelt
     public String toString() {
-        return "Real name: " + name
-                + "\nAlias: " + alias
-                + "\nSuperpower: " + power
-                + "\nYear of publication: " + year
-                + "\nStrength: " + strength + "\n";
+        return "> Real name: " + name
+                + "\n> Alias: " + alias
+                + "\n> Superpower: " + power
+                + "\n> Year of publication: " + year
+                + "\n> Strength: " + strength + "\n";
     }
 }
 
