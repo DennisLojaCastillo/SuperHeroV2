@@ -1,8 +1,10 @@
 package MainAndUI;
+
 import Comparators.*;
 import Data.Superhero;
 import Controller.ControllerSuperhero;
 import Enum.MessageEnum;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -103,19 +105,16 @@ public class UserInterface {
     }
 
     public void sortedList() {
-        int sortChoice = -1;
+        System.out.println("""                  
+                Superhero Sorted List
+                1. Sort by 1 criteria
+                2. Sort by 2 criteria
+                """);
 
-        while (sortChoice != 9) {
-            System.out.println("""                  
-                    Superhero Sorted List
-                    1. Sort by 1 criteria
-                    2. Sort by 2 criteria
-                    """);
+        int sortChoice = readInteger();
+        scanner.nextLine();
+        handlingSortChoice(sortChoice);
 
-            sortChoice = readInteger();
-            scanner.nextLine();
-            handlingSortChoice(sortChoice);
-        }
     }
 
     public void handlingSortChoice(int sortChoice) {
@@ -132,22 +131,18 @@ public class UserInterface {
     }
 
     public void sortBySpecList() {
-        int sortSpecChoice = -1;
-
-        while (sortSpecChoice != 9) {
-            System.out.println("""      
-                    Choose to sorted list by:
-                    1. Name
-                    2. Alias
-                    3. Power
-                    4. Year
-                    5. Strength
-                    9. Back to menu
-                    """);
-            sortSpecChoice = readInteger();
-            scanner.nextLine();
-            handlingSpecList(sortSpecChoice);
-        }
+        System.out.println("""      
+                Choose to sorted list by:
+                1. Name
+                2. Alias
+                3. Power
+                4. Year
+                5. Strength
+                9. Back to menu
+                """);
+        int sortSpecChoice = readInteger();
+        scanner.nextLine();
+        handlingSpecList(sortSpecChoice);
     }
 
     public void handlingSpecList(int sortSpecChoice) {
@@ -194,13 +189,13 @@ public class UserInterface {
     public void sortByPrimAndSecond() {
         System.out.println("Choose the first criteria you want to sort?");
         System.out.println("""
-                    Choose the primary sorted list:
-                    1. Name
-                    2. Alias
-                    3. Power
-                    4. Year
-                    5. Strength                   
-                    """);
+                Choose the primary sorted list:
+                1. Name
+                2. Alias
+                3. Power
+                4. Year
+                5. Strength                   
+                """);
 
         int sortChoice1 = readInteger();
 
@@ -216,13 +211,13 @@ public class UserInterface {
 
         System.out.println("Choose the second criteria you want to sort?\n");
         System.out.println("""
-                    Choose the primary sorted list:
-                    1. Name
-                    2. Alias
-                    3. Power
-                    4. Year
-                    5. Strength                   
-                    """);
+                Choose the primary sorted list:
+                1. Name
+                2. Alias
+                3. Power
+                4. Year
+                5. Strength                   
+                """);
 
         Comparator secondary = null;
         int sortChoice2 = readInteger();
@@ -327,14 +322,14 @@ public class UserInterface {
             int nr = readInteger();
             MessageEnum deleteHero = controller.removeHero(nr);
 
-            switch(deleteHero) {
+            switch (deleteHero) {
                 case SUCCESS -> System.out.println("Superhero deleted");
                 case ERROR -> System.out.println("Error! - Please try again\n");
             }
         }
     }
 
-     public int readInteger() {
+    public int readInteger() {
         while (!scanner.hasNextInt()) {
             String errorMsg = scanner.next();
             System.out.println("Invalid value \"" + errorMsg + "\" Please try again");
